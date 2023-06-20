@@ -50,7 +50,7 @@ has_one     :shipping
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
 | zip_code           | string     | null: false                    |
-| prefecture_id      | integer    | null: false                    |
+| region_id          | integer    | null: false                    |
 | city               | string     | null: false                    |
 | address1           | string     | null: false                    |
 | address2           | string     |                                |
