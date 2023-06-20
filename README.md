@@ -1,28 +1,33 @@
 # README
 
-## Users テーブル
+## users_テーブル
 
 | Column             | Type   | Options                   |
 | ------------------ | ------ | ------------------------- |
 | nickname           | string | null: false               |
 | email              | string | null: false, unique: true |
-| password           | string | null: false               |
+| encrypted_password | string | null: false               |
 | sur_name           | string | null: false               |
 | name               | string | null: false               |
 | sur_name_katakana  | string | null: false               |
 | name_katakana      | string | null: false               |
+| birth_day          | date   | null: false               |
 
 ## Association
 has_many :items
 has_many :buyers
 
-## Items テーブル
+## items_テーブル
 
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
 | title              | string     | null: false                    |
 | overview           | text       | null: false                    |
-| category           | integer    | null: false                    |
+| category_id        | integer    | null: false                    |
+| status_id          | integer    | null: false                    |
+| burden_id          | integer    | null: false                    |
+| region_id          | integer    | null: false                    |
+| shipment_id        | integer    | null: false                    |
 | price              | integer    | null: false                    |
 | user               | references | null: false, foreign_key: true |
 
@@ -30,7 +35,7 @@ has_many :buyers
 belongs_to  :user
 has_one    :buyer
 
-## Buyers テーブル
+## buyers_テーブル
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
 | user               | references | null: false, foreign_key: true |
@@ -41,9 +46,10 @@ belongs_to  :user
 belongs_to  :item
 has_one     :shipping
 
-## Shippings テーブル
+## shippings_テーブル
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
+| zip_code           | string     | null: false                    |
 | prefecture_id      | integer    | null: false                    |
 | city               | string     | null: false                    |
 | address1           | string     | null: false                    |
