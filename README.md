@@ -1,24 +1,55 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Users テーブル
 
-Things you may want to cover:
+| Column             | Type   | Options                   |
+| ------------------ | ------ | ------------------------- |
+| nickname           | string | null: false               |
+| email              | string | null: false, unique: true |
+| password           | string | null: false               |
+| sur_name           | string | null: false               |
+| name               | string | null: false               |
+| sur_name_katakana  | string | null: false               |
+| name_katakana      | string | null: false               |
 
-* Ruby version
+## Association
+has_many :items
+has_many :buyers
 
-* System dependencies
+## Items テーブル
 
-* Configuration
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| title              | string     | null: false                    |
+| overview           | text       | null: false                    |
+| category           | integer    | null: false                    |
+| price              | integer    | null: false                    |
+| user               | references | null: false, foreign_key: true |
 
-* Database creation
+## Association
+belongs_to  :user
+has_one    :buyer
 
-* Database initialization
+## Buyers テーブル
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| user               | references | null: false, foreign_key: true |
+| item               | references | null: false, foreign_key: true |
 
-* How to run the test suite
+## Association
+belongs_to  :user
+belongs_to  :item
+has_one     :shipping
 
-* Services (job queues, cache servers, search engines, etc.)
+## Shippings テーブル
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| prefecture_id      | integer    | null: false                    |
+| city               | string     | null: false                    |
+| address1           | string     | null: false                    |
+| address2           | string     |                                |
+| telephone          | string     | null: false                    |
+| buyer              | references | null: false, foreign_key: true |
 
-* Deployment instructions
-
-* ...
+## Association
+belongs_to  :buyer
