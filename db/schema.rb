@@ -10,7 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_20_110144) do
+ActiveRecord::Schema.define(version: 2023_06_21_064932) do
+
+  create_table "buyers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "item_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["item_id"], name: "index_buyers_on_item_id"
+    t.index ["user_id"], name: "index_buyers_on_user_id"
+  end
+
+  create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "overview", null: false
+    t.integer "category_id", null: false
+    t.integer "status_id", null: false
+    t.integer "burden_id", null: false
+    t.integer "region_id", null: false
+    t.integer "shipment_id", null: false
+    t.integer "price", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_items_on_user_id"
+  end
+
+  create_table "shippings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "zip_code", null: false
+    t.integer "region_id", null: false
+    t.string "city", null: false
+    t.string "address1", null: false
+    t.string "address2"
+    t.string "telephone", null: false
+    t.bigint "buyer_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["buyer_id"], name: "index_shippings_on_buyer_id"
+  end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -30,4 +67,8 @@ ActiveRecord::Schema.define(version: 2023_06_20_110144) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "buyers", "items"
+  add_foreign_key "buyers", "users"
+  add_foreign_key "items", "users"
+  add_foreign_key "shippings", "buyers"
 end
