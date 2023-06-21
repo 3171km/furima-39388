@@ -3,7 +3,6 @@ RSpec.describe User, type: :model do
   before do
     @user = FactoryBot.build(:user)
     end
-
     describe 'ユーザー新規登録' do
       context '新規登録できる場合' do
         it "nicknameとemail、passwordとpassword_confirmationが存在すれば登録できる" do
@@ -90,12 +89,22 @@ RSpec.describe User, type: :model do
       it '姓（カナ）が空だと登録できない' do
         @user.sur_name_katakana = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include("Sur name katakana can't be blank")
+        expect(@user.errors.full_messages).to include('Sur name katakana is invalid')
       end
-      it '名（カナ）が空だと登録できない' do
+      it '姓（カナ）にカタカナ以外の文字（平仮名・漢字・英数字・記号）が含まれていると登録できない' do
+        @user.sur_name_katakana = 'yマダ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Sur name katakana is invalid')
+      end
+        it '名（カナ）が空だと登録できない' do
         @user.name_katakana = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include("Name katakana can't be blank")
+        expect(@user.errors.full_messages).to include("Name katakana is invalid")
+      end
+      it '名（カナ）にカタカナ以外の文字（平仮名・漢字・英数字・記号）が含まれていると登録できない' do
+        @user.name_katakana = 'rクタロウ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Name katakana is invalid')
       end
       it '生年月日が空だと登録できない' do
         @user.birth_day = ''
