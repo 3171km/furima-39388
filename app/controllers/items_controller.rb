@@ -20,7 +20,6 @@ before_action :authenticate_user!, only: [:new]
   end
 
   def show
-    @item = Item.find(params[:id])
   end
   end
 
