@@ -40,7 +40,12 @@ def update
 end
 
 def destroy
-  redirect_to root_path if @item.destroy
+  if current_user.id == @item.user_id
+    @item.destroy
+    redirect_to root_path, notice: "商品を削除しました。"
+  else
+    redirect_to root_path, alert: "他のユーザーの商品は削除できません。"
+  end
 end
 
 
