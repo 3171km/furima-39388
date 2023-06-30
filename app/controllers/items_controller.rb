@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   
 before_action :authenticate_user!, only: [:new, :edit, :destroy]
 before_action :find_item, only: [:show, :edit, :update, :destroy]
+before_action :check_user, only: [:edit, :destroy]
 
 def index 
   @items = Item.all.order(created_at: :desc)
@@ -24,11 +25,6 @@ def show
 end
 
 def edit
-  if current_user.id == @item.user_id
-    render :edit
-  else
-    redirect_to root_path, alert: "他のユーザーの商品は編集できません。"
-  end
 end
 
 def update
@@ -40,14 +36,9 @@ def update
 end
 
 def destroy
-  if current_user.id == @item.user_id
-    @item.destroy
-    redirect_to root_path, notice: "商品を削除しました。"
-  else
-    redirect_to root_path, alert: "他のユーザーの商品は削除できません。"
-  end
+  @item.destroy
+  redirect_to root_path 
 end
-
 
 private
 
@@ -57,5 +48,9 @@ end
 
 def find_item
   @item = Item.find(params[:id])
+end
+
+def check_user
+  redirect_to root_path if current_user.id != @item.user_id || @item.buyer.present?
 end
 end
