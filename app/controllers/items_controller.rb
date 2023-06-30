@@ -6,7 +6,6 @@ before_action :check_user, only: [:edit, :destroy]
 
 def index 
   @items = Item.all.order(created_at: :desc)
-  @burden = Burden.all
 end
 
 def new
@@ -26,7 +25,7 @@ def show
 end
 
 def edit
-  if @item..status == 'sold'
+  if @item.buyer.present?
     redirect_to root_path
 end
 end
@@ -41,7 +40,8 @@ def update
 end
 
 def destroy
-  redirect_to root_path if @item.destroy
+  @item.destroy
+  redirect_to root_path 
 end
 
 private
@@ -55,6 +55,8 @@ def find_item
 end
 
 def check_user
-  redirect_to root_path unless current_user.id == @item.user.id
+   unless current_user.id == @item.user.id
+   redirect_to root_path
+end
 end
 end
