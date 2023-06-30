@@ -26,7 +26,9 @@ def show
 end
 
 def edit
-  redirect_to root_path unless current_user.id == @item.user_id
+  if @item..status == 'sold'
+    redirect_to root_path
+end
 end
 
 
