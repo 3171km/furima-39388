@@ -5,6 +5,7 @@ before_action :find_item, only: [:show, :edit, :update, :destroy]
 
 def index 
   @items = Item.all.order(created_at: :desc)
+  @burden = Burden.all
 end
 
 def new
@@ -24,12 +25,9 @@ def show
 end
 
 def edit
-  if current_user.id == @item.user_id
-    render :edit
-  else
-    redirect_to root_path, alert: "他のユーザーの商品は編集できません。"
-  end
+  redirect_to root_path if @item.buyer.present?
 end
+
 
 def update
   if @item.update(item_params)
@@ -40,14 +38,8 @@ def update
 end
 
 def destroy
-  if current_user.id == @item.user_id
-    @item.destroy
-    redirect_to root_path, notice: "商品を削除しました。"
-  else
-    redirect_to root_path, alert: "他のユーザーの商品は削除できません。"
-  end
+  redirect_to root_path if @item.destroy
 end
-
 
 private
 
@@ -57,5 +49,9 @@ end
 
 def find_item
   @item = Item.find(params[:id])
+end
+
+def check_user
+  redirect_to root_path unless current_user.id == @item.user.id
 end
 end
