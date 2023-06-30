@@ -25,11 +25,7 @@ def show
 end
 
 def edit
-  if @item.buyer.present?
-    redirect_to root_path
 end
-end
-
 
 def update
   if @item.update(item_params)
@@ -55,8 +51,6 @@ def find_item
 end
 
 def check_user
-   unless current_user.id == @item.user.id
-   redirect_to root_path
-end
+  redirect_to root_path if current_user.id != @item.user_id || @item.buyer.present?
 end
 end
