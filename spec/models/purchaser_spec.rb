@@ -28,7 +28,7 @@ RSpec.describe Purchaser, type: :model do
       it '郵便番号が「3桁ハイフン4桁」の半角文字列の正しい形式でないと購入できないこと' do
         @purchaser.zip_code = '1234567'
         @purchaser.valid?
-        expect(@purchaser.errors.full_messages).to include('Zip code is invalid. Include hyphen(-)')
+        expect(@purchaser.errors.full_messages).to include("Zip code は無効です。 ハイフン(-)を含めて入力してください。")
       end
       it 'regionを選択していないと購入できないこと' do
         @purchaser.region_id = nil
@@ -53,17 +53,17 @@ RSpec.describe Purchaser, type: :model do
       it '電話番号は、10桁未満であると購入できないこと' do
         @purchaser.telephone = '12345'
         @purchaser.valid?
-        expect(@purchaser.errors.full_messages).to include("Telephone is invalid. Can't Include hyphen(-)")
+        expect(@purchaser.errors.full_messages).to include("Telephone は無効です。数字のみ入力してください")
       end
       it '電話番号は、11桁以上であると購入できないこと' do
         @purchaser.telephone = '0234512345123'
         @purchaser.valid?
-        expect(@purchaser.errors.full_messages).to include("Telephone is invalid. Can't Include hyphen(-)")
+        expect(@purchaser.errors.full_messages).to include("Telephone は無効です。数字のみ入力してください")
       end
       it '電話番号は半角数値以外購入できないこと' do
         @purchaser.telephone = '020-4512-3451'
         @purchaser.valid?
-        expect(@purchaser.errors.full_messages).to include("Telephone is invalid. Can't Include hyphen(-)")
+        expect(@purchaser.errors.full_messages).to include("Telephone は無効です。数字のみ入力してください")
       end
       it 'userが紐づいていなければ購入できない' do
         @purchaser.user_id = nil
