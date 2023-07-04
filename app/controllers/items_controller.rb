@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   
-before_action :authenticate_user!, only: [:new, :edit, :destroy]
+before_action :authenticate_user!, only: [:new, :edit, :destroy, :show]
 before_action :find_item, only: [:show, :edit, :update, :destroy]
 before_action :check_user, only: [:edit, :destroy]
 
@@ -22,6 +22,8 @@ def create
 end
 
 def show
+  @comments = @item.comments.includes(:user)
+  @comment = Comment.new
 end
 
 def edit
