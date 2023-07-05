@@ -60,10 +60,6 @@ group :development do
   gem 'rubocop', require: false
 end
 
-group :production do
-  gem 'pg', '~> 1.5', '>= 1.5.3'
-end
-
 gem 'devise'
 gem 'pry-rails'
 gem 'active_hash'
