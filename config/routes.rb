@@ -5,5 +5,7 @@ Rails.application.routes.draw do
   resources :items  do
   resources :purchasers, only:[:index, :new, :create]
   resources :comments, only: :create
+  resource :likes, only: [:create, :destroy]
 end
+  resources :users, only: :show
 end

@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :items
   has_many :buyers
   has_many :comments
+  has_many :likes
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
