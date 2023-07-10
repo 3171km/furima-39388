@@ -69,6 +69,7 @@ gem 'net-http'
 gem 'payjp'
 gem 'rails-i18n'
 gem "aws-sdk-s3", require: false
+gem 'sqlite3'
 
 group :production do
   gem 'unicorn', '5.4.1'
