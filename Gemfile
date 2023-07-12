@@ -75,6 +75,8 @@ gem 'payjp'
 gem 'rails-i18n'
 gem "aws-sdk-s3", require: false
 
+gem 'date', '3.3.3'
+
 group :production do
   gem 'unicorn', '5.4.1'
 end
