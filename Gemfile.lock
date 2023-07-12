@@ -376,13 +376,13 @@ DEPENDENCIES
   capistrano-rbenv
   capistrano3-unicorn
   capybara (>= 2.15)
-  date (= 3.3.3)
   devise
   factory_bot_rails
   faker
   image_processing (~> 1.2)
   jbuilder (~> 2.7)
   listen (>= 3.0.5, < 3.2)
+  mail
   mini_magick
   mysql2 (>= 0.4.4)
   net-http
